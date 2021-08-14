@@ -26,7 +26,7 @@
             rel="noreferrer"
             class="button download-cv"
           >
-            {{ .label }} <i class="fa fa-external-link"></i
+            {{ .label }} <i class="fa fa-angle-double-right"></i
           ></a>
           {{ end }} {{ end }}
         </div>
@@ -63,44 +63,52 @@
           {{ end }}
         </ul>
       </div>
-      {{ end }} {{ end }} {{ if .Site.Data.content.skill.enable }} {{ with
-      .Site.Data.content.skill }}
-      <div class="col-lg-6 col-sm-6 col-11 skill">
+      <div class="col-lg-6 col-sm-6 col-11 experience">
+      {{ end }} {{ end }} {{ if .Site.Data.content.education.enable }} {{ with
+        .Site.Data.content.education }}
         <h2>{{ .title }}</h2>
-        <div class="skill-progress-bar">
-          {{ range .skill_list }}
-          <div class="clearfix">
-            <span class="skillbar-title">{{ .name }}</span>
-            {{ if .Site.Data.content.skill.showpercent }}
-            <span class="skill-bar-percent">{{ .percentage }}</span>
-            {{ end }}
-            <div class="skillbar" data-percent="{{ .percentage }}">
-              <div class="skillbar-bar"></div>
-            </div>
-          </div>
+        <ul class="experience-chart">
+          {{ range .education_list }}
+          {{ if not (eq .enable false) }}
+            <li>
+              <div class="single-experience">
+                <h3>{{ .name | markdownify }}</h3>
+                {{ with .company }}
+                <span>{{ . | markdownify }} |</span>
+                {{ end }} {{ with .duration }}
+                <span>{{ . | markdownify }}</span>
+                {{ end }} {{ with .content }}
+                <p>{{ . | markdownify }}</p>
+                {{ end }}
+              </div>
+            </li>
           {{ end }}
-        </div>
-      </div>
+          {{ end }}
+        </ul>
       {{ end }} {{ end }}
+      </div>
     </div>
+    {{ if .Site.Data.content.funfacts.enable }} {{ with .Site.Data.content.funfacts
+    }}
+    <div class="row experience-skill experience">
+        <h2>{{ .title }}</h2> 
+    </div>
+    <div class="fun-facts container pt-5">
+      {{ range .funfacts_list }}
+      <div class="fun-fact-holder">
+        <p><i class="fas {{ .icon }} fa-2x"></i></p>
+        <p>{{ .name }}</p>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }} {{ end }}
   </div>
 </section>
 <!-- =============================
       End About Me
     =============================== -->
 
-{{ if .Site.Data.content.funfacts.enable }} {{ with .Site.Data.content.funfacts
-}}
-<div class="fun-facts container pt-5">
-  {{ range .funfacts_list }}
-  <div class="fun-fact-holder">
-    <img class="img-fluid" src="{{ .image | relURL }}" alt="{{ .name }}" />
-    <p class="fact-counter count" data-count="{{ .count }}">0</p>
-    <p>{{ .name }}</p>
-  </div>
-  {{ end }}
-</div>
-{{ end }} {{ end }}
+
 
 <!-- =============================
        Start Portfolio
@@ -125,12 +133,18 @@
             href="{{ .url }}"
             data-largesrc="{{ $big_image.RelPermalink }}"
             data-title="{{ .name }}"
-            data-buttontext="SEE SITE"
+            data-buttontext="Accès au cabinet"
           >
+          <div style="position: relative; text-align: center; color: white;">
             <img
               src="{{ $sm_image.RelPermalink }}"
               alt="{{ $parsed_name }} image"
+              style="filter: blur(2px);"
             />
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; font-size: 35px;">
+              {{ .name }}
+            </div>
+          </div>
           </a>
         </li>
         {{ end }}
