@@ -18,7 +18,6 @@
       >
         <div class="text-holder">
           <h1>{{ .title | safeHTML }}</h1>
-          <p>{{ .content | markdownify | emojify }}</p>
           {{ if .button.enable }} {{ with .button }}
           <a
             href="{{ .link | relURL }}"
@@ -28,7 +27,9 @@
           >
             {{ .label }} <i class="fa fa-angle-double-right"></i
           ></a>
-          {{ end }} {{ end }}
+          {{ end }}
+          <p>{{ .content | markdownify | emojify }}</p>
+          {{ end }}
         </div>
       </div>
       {{ with .image }}
@@ -133,7 +134,7 @@
             href="{{ .url }}"
             data-largesrc="{{ $big_image.RelPermalink }}"
             data-title="{{ .name }}"
-            data-buttontext="Accès au cabinet"
+            data-buttontext="{{ .button }}"
           >
           <div style="position: relative; text-align: center; color: white;">
             <img
