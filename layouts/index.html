@@ -18,6 +18,7 @@
       >
         <div class="text-holder">
           <h1>{{ .title | safeHTML }}</h1>
+          <p>{{ .content | markdownify | emojify }}</p>
           {{ if .button.enable }} {{ with .button }}
           <a
             href="{{ .link | relURL }}"
@@ -28,14 +29,14 @@
             {{ .label }} <i class="fa fa-angle-double-right"></i
           ></a>
           {{ end }}
-          <p>{{ .content | markdownify | emojify }}</p>
-          {{ end }}
         </div>
       </div>
       {{ with .image }}
       <div class="col-lg-6 col-sm-6 col-9 about-me-images">
         <img src="{{ . | relURL }}" alt="about-me" />
       </div>
+      {{ end }}
+      <p>{{ .content2 | markdownify | emojify }}</p>
       {{ end }}
     </div>
     {{ end }} {{ end }}
